@@ -4,11 +4,32 @@ import AboutPage from "./pages/AboutPage";
 import AdmissionPage from "./pages/AdmissionPage";
 import CoursesPage from "./pages/CoursesPage";
 import ContactPage from "./pages/ContactPage";
-import NotFoundPage from "./pages/NotFoundPage";
-
+import './styles/Pages.css'
+import './App.css'
+import Footer from "./components/Footer/Footer.jsx";
+import ChatbotComponent from "./components/Chatbot/ChatbotComponent.jsx";
+import { useState } from "react";
+import DeveloperInfoPopup from "./components/Developerinfo/DeveloperInfoPopup.jsx";
 const App = () =>{
+const [showPopup, setShowPopup] = useState(true);
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return(
     <>
+    <div>
+        {/* Your main application content */}
+        <DeveloperInfoPopup
+          show={showPopup}
+          onClose={handleClosePopup}
+          studentName="Akash Shriram Hakke"
+          studentPhotoUrl="/Images/ash.jpg" // Path to their photo
+          uniqueMessage="Learned so much during this OJT! This app showcases my independent coding and deployment skills"
+        />
+      </div>
+    <div className="main-layout">
+      <div className="content">
     <Router>
      <Routes>
       <Route path="/" element={<HomePage/>}/>
@@ -17,10 +38,13 @@ const App = () =>{
       <Route path="/admission" element={<AdmissionPage/>}/>
       <Route path="/courses" element ={<CoursesPage/>}/>
       <Route path="/contact" element={<ContactPage/>}/>
-      <Route path="/not found" element={<NotFoundPage/>}/>
      </Routes>
-   </Router>
-    </>
+      </Router>
+      <ChatbotComponent/>
+      </div>
+       <Footer />
+   </div>
+  </>
   )
 }
 export default App;
